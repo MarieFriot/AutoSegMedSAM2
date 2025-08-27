@@ -64,6 +64,4 @@ Ensuite, les masques de référence sont déplacées sur l'image cible (transfor
 ## 4 - Segmentations avec MedSAM2
 ```text
 python3 medsam2.py
-
-
 ```
