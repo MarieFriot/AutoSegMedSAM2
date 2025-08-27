@@ -45,6 +45,9 @@ python3 FROG.py AutoSegMedSAM2/MedSAM2/amos/imagesRg -o output -ras -cmin 100 -c
 ```
 Dans le dossier imagesRg doivent se trouver les images de référence.
 Un fichier "dummy.mhd" est automatiquement créé. Il correspond à la description de l'espace commun. 
+
+
+Si erreur 32512 :  export LD_LIBRARY_PATH=/usr/lib/jvm/java-21-openjdk/lib/server:$LD_LIBRARY_PATH
 ## 2- Recalage des images cibles (à segmenter) sur cette espace commun (calcul des transformations associées)
 ```text
 ./run_register.sh
