@@ -6,6 +6,26 @@ D'un point de vue pratique, pour réaliser la méthode de segmentation automatiq
 
 
 ## Arborescence des fichiers
+AutoSegMedSAM2/
+├── README.md
+├── MedSAM2/
+│   ├── amos/
+│   │   ├── imagesTr/
+│   │   └── labelsTr/
+│   │   └── imagesRg/
+│   │   └── labelsRg/
+│   │   └── scoreMap/
+│   │
+│   └── medsam2.py
+├── FROG-MASTER/
+│   ├── output/
+│   │   ├── transforms/
+│   │   └── dummy.mhd/
+│   │   └── transformed_mask{i}.nii.gz
+│   │   └── transformed_maskTemp{i}.nii.gz
+│   │
+│   ├── transforms/
+│   └── transformsR/
 
 ## 1- Recalage des images de référence dans un espace commmun (calcul des transformations associées)
 
