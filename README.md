@@ -6,6 +6,7 @@ D'un point de vue pratique, pour réaliser la méthode de segmentation automatiq
 
 
 ## Arborescence des fichiers
+```text
 AutoSegMedSAM2/
 ├── README.md
 ├── MedSAM2/
@@ -26,6 +27,7 @@ AutoSegMedSAM2/
 │   │
 │   ├── transforms/
 │   └── transformsR/
+```
 
 ## 1- Recalage des images de référence dans un espace commmun (calcul des transformations associées)
 
