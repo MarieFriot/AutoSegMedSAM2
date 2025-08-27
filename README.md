@@ -30,11 +30,18 @@ AutoSegMedSAM2/
 ```
 
 ## 1- Recalage des images de référence dans un espace commmun (calcul des transformations associées)
-
-
-
+```text
+python3 FROG.py ..../MedSAM2/amos/imagesRg - o output -ras -cmin 100 -cmax 500 -a 5 -lancho
+```
 ## 2- Recalage des images cibles (à segmenter) sur cette espace commun (calcul des transformations associées)
-
-## 3- Racalage des masques de références sur les images cibles : création des cartes de score
-
+```text
+./run_register.sh
+```
+## 3- Recalage des masques de références sur les images cibles : création des cartes de score
+```text
+python3 FROG-1.py
+```
 ## 4 - Segmentations avec MedSAM2
+```text
+python3 medsam2.py
+```
