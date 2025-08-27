@@ -4,6 +4,10 @@ Contenu scientifique décrit dans le fichier rapport_de_stage.pdf.
 
 D'un point de vue pratique, pour réaliser la méthode de segmentation automatique décrite dans le fichier rapport_de_stage.pdf voici les étapes à suivre.
 
+Les méthodes FROG et MedSAM2 sont issus des répository suivants : 
+  - https://github.com/valette/FROG
+  - https://github.com/bowang-lab/MedSAM2
+
 
 ## Arborescence des fichiers
 ```text
