@@ -26,7 +26,7 @@ AutoSegMedSAM2/
 │   │
 │   └── medsam2.py
 │
-├── FROG-MASTER/
+├── FROG-master/
 │   ├── output/
 │   │   ├── transforms/
 │   │   └── dummy.mhd/
