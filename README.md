@@ -16,12 +16,16 @@ AutoSegMedSAM2/
 ├── MedSAM2/
 │   ├── amos/
 │   │   ├── imagesTr/
+│   │       └── amos_0309.nii.gz
 │   │   └── labelsTr/
+│   │       └── amos_0309.nii.gz
+│   │   └── scoreMap/
+│   │       └── amos_0309.nii.gz
 │   │   └── imagesRg/
 │   │   └── labelsRg/
-│   │   └── scoreMap/
 │   │
 │   └── medsam2.py
+│
 ├── FROG-MASTER/
 │   ├── output/
 │   │   ├── transforms/
@@ -39,15 +43,24 @@ AutoSegMedSAM2/
 ```text
 python3 FROG.py ..../MedSAM2/amos/imagesRg - o output -ras -cmin 100 -cmax 500 -a 5 -lancho
 ```
+Dans le dossier imagesRg doivent se trouver les images de référence.
+Un fichier "dummy.mhd" est automatiquement créé. Il correspond à l'espace commun. 
 ## 2- Recalage des images cibles (à segmenter) sur cette espace commun (calcul des transformations associées)
 ```text
 ./run_register.sh
 ```
+Le script run_register.sh exécute le fichier register.py qui par défaut met les fichiers .json correspondant aux transformations dans le dossier FROG-MASTER/transforms/. Dans run_register.sh les json sont ensuite déplacés dans le dossier FROG-MASTER/transformsR/. Ce dossier comporte donc les transformations des images cibles dans l'espace commun.
 ## 3- Recalage des masques de références sur les images cibles : création des cartes de score
 ```text
 python3 FROG-1.py
 ```
+Les masques de références dans le dossier labelsRg sont d'abord déplacé dans l'espace commun (transformed_mask{i}.nii.gz) à l'aide des transformations calculées à l'étape 1 et situées dans le dossier FROG-MASTER/output/transforms/.
+
+Ensuite, les masques de référence sont déplacées sur l'image cible (transformed_maskTemp{i}.nii.gz) avec les transformations du dossier FROG-MASTER/transformsR/. Ils sont alors supperposés et empilés dans une seule image de dimension 15xDxHxW dans le dossier scoreMap.
+
 ## 4 - Segmentations avec MedSAM2
 ```text
 python3 medsam2.py
+
+
 ```
