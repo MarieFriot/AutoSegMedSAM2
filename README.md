@@ -44,7 +44,7 @@ AutoSegMedSAM2/
 python3 FROG.py ..../MedSAM2/amos/imagesRg - o output -ras -cmin 100 -cmax 500 -a 5 -lancho
 ```
 Dans le dossier imagesRg doivent se trouver les images de référence.
-Un fichier "dummy.mhd" est automatiquement créé. Il correspond à l'espace commun. 
+Un fichier "dummy.mhd" est automatiquement créé. Il correspond à la description de l'espace commun. 
 ## 2- Recalage des images cibles (à segmenter) sur cette espace commun (calcul des transformations associées)
 ```text
 ./run_register.sh
