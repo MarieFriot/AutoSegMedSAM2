@@ -24,7 +24,9 @@ AutoSegMedSAM2/
 │   │   └── dummy.mhd/
 │   │   └── transformed_mask{i}.nii.gz
 │   │   └── transformed_maskTemp{i}.nii.gz
-│   │
+│   ├── FROG.py
+│   ├── FROG-1.py
+│   ├── run_register.sh
 │   ├── transforms/
 │   └── transformsR/
 ```
