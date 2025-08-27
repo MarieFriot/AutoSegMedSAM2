@@ -1,0 +1,3 @@
+/home/friot/AutoSegMedSAM2/FROG-master/output/points0.csv.gz
+/home/friot/AutoSegMedSAM2/FROG-master/output/points1.csv.gz
+/home/friot/AutoSegMedSAM2/FROG-master/points.csv.gz
