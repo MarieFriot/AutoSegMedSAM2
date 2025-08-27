@@ -41,7 +41,7 @@ AutoSegMedSAM2/
 
 ## 1- Recalage des images de référence dans un espace commmun (calcul des transformations associées)
 ```text
-python3 FROG.py ..../MedSAM2/amos/imagesRg - o output -ras -cmin 100 -cmax 500 -a 5 -lancho
+python3 FROG.py ..../MedSAM2/amos/imagesRg - o output -ras -cmin 100 -cmax 500 -a 5 -lanchor 0.5 0.5 0
 ```
 Dans le dossier imagesRg doivent se trouver les images de référence.
 Un fichier "dummy.mhd" est automatiquement créé. Il correspond à la description de l'espace commun. 
