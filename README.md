@@ -65,3 +65,11 @@ Ensuite, les masques de référence sont déplacées sur l'image cible (transfor
 ```text
 python3 medsam2.py
 ```
+### CodeCarbon
+---- Autorisation fichier RAPL :
+```text
+ls -l /sys/class/powercap/intel-rapl*/energy_uj
+```
+```text
+sudo chmod o+r /sys/class/powercap/intel-rapl:0:0/energy_uj
+```
