@@ -1,1 +1,1 @@
-voir https://github.com/valette/FROG/tree/master pour télécharger la méthode FROG
+voir https://github.com/valette/FROG pour télécharger la méthode FROG
