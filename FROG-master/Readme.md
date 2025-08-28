@@ -1,4 +1,4 @@
-FROG : Fast Registration Of image Groups 
+FROG : Fast Registration Of image Groups : voir https://github.com/valette/FROG/tree/master pour télécharger la méthode FROG
 ========================================
 <p align="center">
   <img src="https://www.creatis.insa-lyon.fr/~valette/public/project/frog/featured_huf3b80675463e3a95253905cb1f0a6681_392849_cae6eb67255cf523f959b4cd1212c3d8.webp">
