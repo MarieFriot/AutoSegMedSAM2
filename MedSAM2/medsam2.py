@@ -314,7 +314,7 @@ zcoef = [0.2,0.2,0.2,0.2,0.2,0.2,0.2,0,0,0.2,0,0,0.2,0.2,0.2]
 xycoef = [0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1]
 #INFERENCE
 try : 
-    for i in range(1,len(img_files)) :
+    for i in range(0,len(img_files)) :
     
         nii_image = sitk.ReadImage(img_files[i])
         nii_image_data = sitk.GetArrayFromImage(nii_image)
