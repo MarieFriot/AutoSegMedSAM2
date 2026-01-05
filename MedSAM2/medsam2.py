@@ -441,7 +441,7 @@ try :
                
                 for out_frame_idx, out_obj_ids, out_mask_logits in predictor.propagate_in_video(inference_state, reverse = True, max_frame_num_to_track = max_frame_num_to_track):
                     segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
-                    if out_frame_idx < bboxes[1][0] : 
+                    if out_frame_idx < bboxes[0][0] : 
                         segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
 
 
