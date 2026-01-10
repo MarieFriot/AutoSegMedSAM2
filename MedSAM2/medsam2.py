@@ -360,10 +360,11 @@ try :
 
                 if len(class_mask.shape)  == 4 : #si c'est 15 cartes de scores supperposées
                     class_mask = np.mean(class_mask, axis=3) # on les moyenne
+                    prob_map_with_bbox = class_mask.copy()
                     class_mask = (class_mask > th).astype(np.uint8)
 
 
-                prob_map_with_bbox = class_mask.copy()
+                
                 
                 bbox3D = mask3D_to_bbox(class_mask, 0)
                 if bbox3D.shape[0] == 0:
