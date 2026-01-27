@@ -55,7 +55,6 @@ cd ./FROG-master
 ```
 Le script run_register.sh exécute le fichier register.py qui par défaut met les fichiers .json correspondant aux transformations dans le dossier FROG-MASTER/transforms/. Dans run_register.sh les json sont ensuite déplacés dans le dossier FROG-MASTER/transformsR/. Ce dossier comporte donc les transformations des images cibles dans l'espace commun.
 
-! Dans ce script il faut faire attention de bien vérifier/modifier les chemins des fichiers.
 ## 3- Recalage des masques de références sur les images cibles : création des cartes de score
 ```text
 python3 FROG-1.py
