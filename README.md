@@ -57,7 +57,7 @@ Le script run_register.sh exécute le fichier register.py qui par défaut met le
 
 ## 3- Recalage des masques de références sur les images cibles : création des cartes de score
 ```text
-python nom_de_votre_script.py \
+python FROG-1.py \
   --FROG_path "AutoSegMedSAM2/FROG-master" \
   --output_scoreMap "AutoSegMedSAM2/MedSAM2/amos/scoreMap" \
   --images_rg "AutoSegMedSAM2/MedSAM2/amos/imagesRg" \
