@@ -116,7 +116,7 @@ for f in range(len(image_files)) :
   NIFTI_PATH = image_files[f]
   print("Loading NIfTI file...")
   #nii = nib.load(NIFTI_PATH)
-  nii = convertToLAS(NIFTI_PATH)
+  nii = convertToLAS(NIFTI_PATH) #car les modèles YOLO que j'utilise on été entrainé en format LAS et que mes images sont en RAS
   print("âœ“ NIfTI file loaded")
   data = nii.get_fdata()
 
@@ -154,7 +154,7 @@ for f in range(len(image_files)) :
 
   print(f"✓ All {num_slices_z} slices processed for {NIFTI_PATH}!\n")
 
-
+  # ==== Regrouper toutes les prédictions par classe et trouver le zmin et le zmax de chaque classes =====
   organ_data = {}
   for pred in all_predictions_2d:
     class_id = pred['class_id']
@@ -174,11 +174,8 @@ for f in range(len(image_files)) :
             organ_data[class_id]['z_max'] = z
         organ_data[class_id]['detections'].append((z, bbox))
 
+  # ==================== Chercher les bboxs à extraire ====================
 
-    # ==================== CONSOLIDATION 3D (Étape 2 : Calcul et Formatage JSON) ====================
-
-
-  # ... (votre code précédent)
 
   current_image_results = {
       'image_name': NIFTI_PATH,
@@ -209,7 +206,7 @@ for f in range(len(image_files)) :
                 closest_bbox = bbox_det
                 actual_z = z_det
 
-        # Transformation des coordonnées LAS vers RAS (si nécessaire comme dans votre code)
+        # Transformation des coordonnées LAS vers RAS 
         if closest_bbox is not None:
             y1, x1_las, y2, x2_las = closest_bbox
             x1_ras = W - x2_las
@@ -241,7 +238,6 @@ for f in range(len(image_files)) :
 
   try:
       with open(OUTPUT_JSON_FILE, 'w') as f:
-          # indent=4 rend le fichier lisible
           json.dump(all_images_results, f, indent=4)
       print(f"✓ Successfully wrote {len(all_images_results)} image results to {OUTPUT_JSON_FILE}")
   except Exception as e:
@@ -252,3 +248,4 @@ tracker.stop()
 print(duration)
 print(np.mean(duration))
 print(np.std(duration))
+
