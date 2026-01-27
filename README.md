@@ -57,7 +57,12 @@ Le script run_register.sh exécute le fichier register.py qui par défaut met le
 
 ## 3- Recalage des masques de références sur les images cibles : création des cartes de score
 ```text
-python3 FROG-1.py
+python nom_de_votre_script.py \
+  --FROG_path "AutoSegMedSAM2/FROG-master" \
+  --output_scoreMap "AutoSegMedSAM2/MedSAM2/amos/scoreMap" \
+  --images_rg "AutoSegMedSAM2/MedSAM2/amos/imagesRg" \
+  --images_tr "AutoSegMedSAM2/MedSAM2/amos/imagesTr" \
+  --bin "AutoSegMedSAM2/FROG-master/bin/VolumeTransform"
 ```
 Les masques de références dans le dossier labelsRg sont d'abord déplacé dans l'espace commun (transformed_mask{i}.nii.gz) à l'aide des transformations calculées à l'étape 1 et situées dans le dossier FROG-MASTER/output/transforms/.
 
