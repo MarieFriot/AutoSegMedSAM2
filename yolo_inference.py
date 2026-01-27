@@ -55,7 +55,7 @@ def convertToLAS(filename):
 
 MODEL_PATH = './bestYOLOV11n_pretrained.pt'
 OUTPUT_JSON_FILE = './3d_bounding_boxes_results_v11n3P.json'
-data_root = "/home/marfriot/prjrech/MedSAM2/amos"
+data_root = "./MedSAM2/amos"
 output_dir = "./codecarbon"
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -248,4 +248,5 @@ tracker.stop()
 print(duration)
 print(np.mean(duration))
 print(np.std(duration))
+
 
