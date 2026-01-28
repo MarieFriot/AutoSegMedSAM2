@@ -70,8 +70,11 @@ Ensuite, les masques de référence sont déplacées sur l'image cible (transfor
 
 ## 4 - Segmentations avec MedSAM2
 ```text
+mkdir AutoSegMedSAM2/MedSAM2/amos/maskPred
 python3 medsam2.py
 ```
+Les masques prédits sont enregistrés dans le dossier maskPred.
+
 ### CodeCarbon
 --> Autorisation fichier RAPL :
 ```text
