@@ -1,12 +1,20 @@
 #!/bin/bash
 
 
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 </chemin/vers/imagesRg> <chemin/vers/images_tr>"
+    exit 1
+fi
+
+IMAGES_RG=$1
+IMAGES_TR_DIR=$2
+
 # Compter le nombre de masques de référence
-count=$(ls ./../MedSAM2/amos/imagesRg/ | wc -l)
+count=$(ls "$IMAGES_RG" | wc -l)
 
 i=0
 #pour toutes les images à segmenter
-for f in ./../MedSAM2/amos/imagesTr/*.nii.gz; do
+for f in "$IMAGES_TR_DIR"/*.nii.gz; do
 
     # Lancer le script Python qui recale les images cibles sur l'espace commun. Le dossier output est le dossier dans lequel on travail
     python3 tools/register.py -d ./output -i "$f" -cmin -100 -cmax 500 --orientation "RAS" 
