@@ -83,14 +83,14 @@ if __name__ == "__main__":
            
             json_tr_path = join(args.FROG_path, "transformsR", f"{i}.json") 
             
-            cmd = f"{transformBin} {join(args.FROG_path, "output", f'transformed_mask{k}.nii.gz')} {imagesTrPaths[i]} -ti {json_tr_path} -o {temp_mask_path} -i nearestneighbour"
+            cmd = f"{transformBin} {join(args.FROG_path, 'output', f'transformed_mask{k}.nii.gz')} {imagesTrPaths[i]} -ti {json_tr_path} -o {temp_mask_path} -i nearestneighbour"
             execute(cmd)
 
         # Superposition
         masks_data = []
         last_affine = None
         for k in range(len(reference_mask)):
-            temp_mask_path = join(args.FROG_path, "output", f"transformed_maskTemp{k}.nii.gz")
+            temp_mask_path = join(args.FROG_path, 'output', f"transformed_maskTemp{k}.nii.gz")
             img = nib.load(temp_mask_path)
             masks_data.append(img.get_fdata().astype(np.uint8))
             last_affine = img.affine
