@@ -52,7 +52,7 @@ Si erreur 32512 :  export LD_LIBRARY_PATH=/usr/lib/jvm/java-21-openjdk/lib/serve
 ```text
 cd ./FROG-master
 mkdir transformsR
-bash run_registration.sh /chemin/vers/imagesRg/ /chemin/vers/imagesTr/
+bash run_register.sh /chemin/vers/imagesRg/ /chemin/vers/imagesTr/
 ```
 Le script run_register.sh exécute le fichier register.py qui par défaut met les fichiers .json correspondant aux transformations dans le dossier FROG-MASTER/transforms/. Dans run_register.sh les json sont ensuite déplacés dans le dossier FROG-MASTER/transformsR/. Ce dossier comporte donc les transformations des images cibles dans l'espace commun.
 
