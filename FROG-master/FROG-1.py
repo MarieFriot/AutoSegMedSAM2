@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 reference_mask.append(abspath(join(labelsRgDir, f)))
                 transRef.append(i)
 
-    # Étape 1 : Déplace les masques dans l'espace commun
+    # Étape 1 : Déplace les masques de référence dans l'espace commun
     for i in range(len(reference_mask)):
         mask_path = reference_mask[i]
         json_path = join(args.FROG_path, "output", "transforms", f"{transRef[i]}.json")
@@ -77,7 +77,8 @@ if __name__ == "__main__":
     for i in range(len(imagesTrNames)):
         start_time = time.time()
         transformed_mask_target = join(outputMasks, imagesTrNames[i])
-
+        
+        #déplace les masques de référence de l'espace commun à l'espace de l'image cible
         for k in range(len(reference_mask)):
             temp_mask_path = join(args.FROG_path, "output", f"transformed_maskTemp{k}.nii.gz")
            
@@ -86,7 +87,7 @@ if __name__ == "__main__":
             cmd = f"{transformBin} {join(args.FROG_path, 'output', f'transformed_mask{k}.nii.gz')} {imagesTrPaths[i]} -ti {json_tr_path} -o {temp_mask_path} -i nearestneighbour"
             execute(cmd)
 
-        # Superposition
+        # Superposition des masques transposés
         masks_data = []
         last_affine = None
         for k in range(len(reference_mask)):
