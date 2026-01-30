@@ -281,12 +281,10 @@ prompt_files = []
 #récupérer les fichiers images et les masques de vérité
 #les fichiers de gt et les images doivent porter les memes noms au début 
 for scan in scan_list :
-    path_tr = os.path.join(data_root, "imagesVa", scan)
+    path_tr = os.path.join(data_root, "imagesVa", scan) #images à inférer
     img_files.append(path_tr)
-    
-    gt_files.append(os.path.join(data_root, "labelsVa", scan))
-    #prompt_files.append(os.path.join(data_root, "spacing075-SURF/maskPred3Prompt", scan))
-    #prompt_files.append(os.path.join(data_root, "scoreMap", scan))
+    gt_files.append(os.path.join(data_root, "labelsVa", scan)) #masques de vérité correspondants
+
 
 
 yolo_bboxes_json = '/chemin/vers/3d_bounding_boxes_results.json'
@@ -296,8 +294,8 @@ with open(yolo_bboxes_json, 'r') as f:
 full_index = { os.path.basename(d['image_name']): d for d in raw_data }
 
 
-model_cfg = "configs/sam2.1_hiera_t512.yaml"
-checkpoint = "/home/marfriot/prjrech/MedSAM2/checkpoints/MedSAM2_latest.pt"
+model_cfg = "configs/sam2.1_hiera_t512.yaml" #normalement ce dossier est dans le dossier sam2 mais pas besoin de spécifier ./sam2/configs
+checkpoint = "checkpoints/MedSAM2_latest.pt"
 predictor = build_sam2_video_predictor_npz(model_cfg, checkpoint)   
 
 
@@ -464,4 +462,5 @@ try :
 finally : 
 
     tracker.stop()
+
 
