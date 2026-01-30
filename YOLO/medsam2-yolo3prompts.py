@@ -22,10 +22,11 @@
 
 # inference
 
-
 #si on a un masque de segmentation :
     #extrait la plus grande composante connexe
     #transforme en entier
+
+
 import gc
 import SimpleITK as sitk
 import os
@@ -287,7 +288,8 @@ for scan in scan_list :
     #prompt_files.append(os.path.join(data_root, "spacing075-SURF/maskPred3Prompt", scan))
     #prompt_files.append(os.path.join(data_root, "scoreMap", scan))
 
-yolo_bboxes_json = '/home/marfriot/prjrech/MedSAM2/3d_bounding_boxes_results_v11n3P.json'
+
+yolo_bboxes_json = '/chemin/vers/3d_bounding_boxes_results.json'
 with open(yolo_bboxes_json, 'r') as f:
     raw_data = json.load(f)
 # On crée un index global : { "amos_0309": {...}, "amos_0310": {...} }
@@ -370,24 +372,6 @@ try :
             inference_state = predictor.init_state(img_resized, video_height, video_width)
           
             for class_id in classes : 
-                """
-                class_mask = (prmpt == class_id).astype(np.uint8)
-        
-                th = threshold[class_id -1]
-
-                if len(class_mask.shape)  == 4 : #si c'est 15 cartes de scores supperposées
-                    class_mask = np.mean(class_mask, axis=3) # on les moyenne
-                    class_mask = (class_mask > th).astype(np.uint8)
-
-
-                prob_map_with_bbox = class_mask.copy()
-                
-                bbox3D = mask3D_to_bbox(class_mask, 0)
-                if bbox3D.shape[0] == 0:
-                    print(f"OH we lost the organ {class_id} in the mask {prompt_files[i]}")
-                    continue
-
-                """
                 
                 dico_prompt = full_index[image_name]['organs'].get(f"{class_id}")
                 if dico_prompt is None :
@@ -395,66 +379,15 @@ try :
                     continue
             
                 z_max =  dico_prompt['z_max']
-               
-                z_min =   dico_prompt['z_min'] 
-                percentages = [0.25, 0.5, 0.75]
-                #slices = [int((bbox3D[-1] - bbox3D[2]) * p) + bbox3D[2] for p in percentages]
-                #slices = [z_bas, z_milieu, z_haut]
-                bboxes = []
-               
-                fallback_failed = False 
-                
-                #for s in slices:
-                    #bbox = mask2D_to_bbox((prob_map_with_bbox[s, :, :] > th).astype(np.uint8),0)
-                    #bbox = dico_prompt['median_bbox_xyxy']
-                """
-                    if bbox.shape[0] == 0:
-                        print(f"OH weird organ {class_id} in the mask {prompt_files[i]} at slice {s}")
-                        bbox = mask2D_to_bbox((prob_map_with_bbox[s, :, :] > 0).astype(np.uint8),0)
-                        if bbox.shape[0] == 0:
-                            print(f"OH weird organ {class_id} in the mask {prompt_files[i]} at slice {s}")
-                            bbox = mask2D_to_bbox((prob_map_with_bbox[slices[1], :, :] > th).astype(np.uint8), 0) #FALLBACK TO MIDDLE BBX
-                            if bbox.shape[0] == 0 :
-                                fallback_failed = True
-                                break
-                    """
-                    #bboxes.append((s, bbox))
-                
+                z_min =   dico_prompt['z_min']
                 bboxes = dico_prompt['bboxes']
-                if fallback_failed:
-                    continue
-                """
-                # Dessiner les bords pour chaque bbox slice
-                for s, bbox in bboxes:
-                    prob_map_with_bbox[s, bbox[1]:bbox[3]+1, bbox[0]] = 1.0  # Bord gauche
-                    prob_map_with_bbox[s, bbox[1]:bbox[3]+1, bbox[2]] = 1.0  # Bord droit
-                    prob_map_with_bbox[s, bbox[1], bbox[0]:bbox[2]+1] = 1.0  # Bord haut
-                    prob_map_with_bbox[s, bbox[3], bbox[0]:bbox[2]+1] = 1.0  # Bord bas
-
-                y = np.arange(bbox3D[0], bbox3D[3]+1, 2)
-                prob_map_with_bbox[bbox3D[-1],  (bbox3D[4] - bbox3D[1])//2 + bbox3D[1], y] = 1.0 #Zmax
-                prob_map_with_bbox[bbox3D[2],  (bbox3D[4] - bbox3D[1])//2 + bbox3D[1], y] = 1.0 #Zmin
-
-                # Sauvegarde de l'image avec les bordures de bbox
-                sitk_prob_with_bbox = sitk.GetImageFromArray(prob_map_with_bbox)
-                sitk_prob_with_bbox.CopyInformation(nii_image)
-                mask_path = gt_files[i]
-                output_path = mask_path.replace(
-                    'labelsTr',
-                    f'probMap/{class_id}'
-                )
-                output_dir = os.path.dirname(output_path)
-                os.makedirs(output_dir, exist_ok=True)
-                sitk.WriteImage(sitk_prob_with_bbox, output_path)
-                """
               
-                        
+        
                 #partie haut
                 max_frame_num_to_track = (z_max - bboxes[1][0]) # zmax - zmilieu
                 _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[1][0], obj_id=1, box=bboxes[1][1])
                 _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[2][0], obj_id=1, box=bboxes[2][1])
-                #_, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[2][0], obj_id=1, box=bboxes[2][1])
-                
+              
                 for out_frame_idx, out_obj_ids, out_mask_logits in predictor.propagate_in_video(inference_state, max_frame_num_to_track = max_frame_num_to_track):
                     segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
                     
@@ -463,24 +396,12 @@ try :
                 
                 #partie bas
                 max_frame_num_to_track = (bboxes[1][0] - bboxes[0][0])# zmilieu à z0.25
-                #max_frame_num_to_track = (z_milieu - z_min) 
                 _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[1][0], obj_id=1, box=bboxes[1][1])
                
                 for out_frame_idx, out_obj_ids, out_mask_logits in predictor.propagate_in_video(inference_state, reverse = True, max_frame_num_to_track = max_frame_num_to_track):
                     segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
                 
-                """
-                max_frame_num_to_track = (bboxes[2][0] - bboxes[0][0])# zmilieu à z0.17
-                
-                _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[1][0], obj_id=1, box=bboxes[1][1])
-               
-                for out_frame_idx, out_obj_ids, out_mask_logits in predictor.propagate_in_video(inference_state, reverse = True, max_frame_num_to_track = max_frame_num_to_track):
-                    segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
-                    if out_frame_idx < bboxes[1][0] : 
-                        segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
-                
-                """
-                
+        
                 max_frame_num_to_track = (bboxes[1][0] - z_min)# dernière partie
                 
                 _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[0][0], obj_id=1, box=bboxes[0][1])
@@ -543,3 +464,4 @@ try :
 finally : 
 
     tracker.stop()
+
