@@ -44,7 +44,7 @@ AutoSegMedSAM2/
 python3 FROG.py AutoSegMedSAM2/MedSAM2/amos/imagesRg -o output -ras -cmin 100 -cmax 500 -a 5 -lanchor 0.5 0.5 0
 ```
 Dans le dossier imagesRg doivent se trouver les images de référence.
-Un fichier "dummy.mhd" est automatiquement créé. Il correspond à la description de l'espace commun. 
+Les résultats du recalage se situent dans le dossier output (spécifié dans l'option -o). Notamment,  fichier "dummy.mhd" est automatiquement créé dans ce dossier Il correspond à la description de l'espace commun. 
 
 
 Si erreur 32512 :  export LD_LIBRARY_PATH=/usr/lib/jvm/java-21-openjdk/lib/server:$LD_LIBRARY_PATH
@@ -55,6 +55,8 @@ mkdir transformsR
 bash run_register.sh /chemin/absolu/vers/imagesRg /chemin/absolu/vers/imagesTr /chemin/aboslu/vers/output
 ```
 Le script run_register.sh exécute le fichier register.py qui par défaut met les fichiers .json correspondant aux transformations dans le dossier FROG-MASTER/transforms/. Dans run_register.sh les json sont ensuite déplacés dans le dossier FROG-MASTER/transformsR/. Ce dossier comporte donc les transformations des images cibles dans l'espace commun.
+
+Le dossier output correspond au dossier créer à l'étape précédement.
 
 ## 3- Recalage des masques de références sur les images cibles : création des cartes de score
 ```text
