@@ -56,7 +56,7 @@ bash run_register.sh /chemin/absolu/vers/imagesRg /chemin/absolu/vers/imagesTr /
 ```
 Le script run_register.sh exécute le fichier register.py qui par défaut met les fichiers .json correspondant aux transformations dans le dossier FROG-MASTER/transforms/. Dans run_register.sh les json sont ensuite déplacés dans le dossier FROG-MASTER/transformsR/. Ce dossier comporte donc les transformations des images cibles dans l'espace commun.
 
-Le dossier output correspond au dossier créer à l'étape précédement.
+Le dossier output correspond au dossier créé à l'étape précédement.
 
 ## 3- Recalage des masques de références sur les images cibles : création des cartes de score
 ```text
