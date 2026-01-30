@@ -39,6 +39,9 @@ AutoSegMedSAM2/
 │   └── transformsR/
 ```
 
+## Orientaion des images
+Cette méthode a été testé en mettant toutes les images en format RAS. Il est je pense possible de travailler en format LAS. Dans ce cas, il faut enlever l'option -ras dans l'exécution du script FROG.py (étape 1) et l'option --orientation "RAS" dans le script run_register.sh (étape 2).
+
 ## 1- Recalage des images de référence dans un espace commmun (calcul des transformations associées)
 ```text
 python3 FROG.py AutoSegMedSAM2/MedSAM2/amos/imagesRg -o output -ras -cmin 100 -cmax 500 -a 5 -lanchor 0.5 0.5 0
