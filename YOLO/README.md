@@ -5,7 +5,7 @@ Dans ce dossier se situe le code pour inférer des modèles YOLO pour la génér
 Pour cela, utiliser le code yolo_inference.py.
 Ce code permet de générer un fichier json (3d_bounding_boxes_results.json) contenant 3 boîtes engolbantes pour chaques organes de chaque images ainsi que les bornes de propagation (z_min et z_max). 
 
-'''text
+```text
 [
   {
     "image_name": "/chemin/vers/image_1.nii.gz",
@@ -23,9 +23,7 @@ Ce code permet de générer un fichier json (3d_bounding_boxes_results.json) con
     }
   }
 ]
-
-
-'''
+```
 
 Dans mon script j'ai une fonction converToLAS car les modèles YOLO que j'ai utilisés ont été entrainé avec des images en format LAS, alors que mes images étaient en format RAS. Je devais donc retourner mes images avant de les inférer. 
 De plus, après inférence, je devais à l'inverse convertir les coordonnées obtenues en LAS dans le référentiel RAS. Je conseille d'enlever ces deux étapes et d'entrainer les modèles YOLO dans le même référentiel (RAS ou LAS) que pour l'inférence avec MedSAM2.
