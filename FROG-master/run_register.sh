@@ -8,7 +8,7 @@ fi
 
 IMAGES_RG=$1
 IMAGES_TR_DIR=$2
-OUTPUT_DIR = $3
+OUTPUT_DIR=$3
 
 # Compter le nombre de masques de référence
 count=$(ls "$IMAGES_RG" | wc -l)
@@ -18,7 +18,7 @@ i=0
 for f in "$IMAGES_TR_DIR"/*.nii.gz; do
 
     # Lancer le script Python qui recale les images cibles sur l'espace commun. Le dossier output est le dossier dans lequel on travail
-    python3 tools/register.py -d OUTPUT_DIR "$f" -cmin -100 -cmax 500 --orientation "RAS" 
+    python3 tools/register.py -d "$OUTPUT_DIR" "$f" -cmin -100 -cmax 500 --orientation "RAS" 
 
     # Par défaut register.py met le fichier .json de la transformation dans le dossier transforms et la nomme en fonction du nombre de transformation déjà calculé lors du premier recalage
     # Si on a 15 masques de référence, les transformations vont toutes s'écraser dans le dossier transforms sous le nom de 15.json
