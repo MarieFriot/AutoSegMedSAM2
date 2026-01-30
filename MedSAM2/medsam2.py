@@ -416,7 +416,8 @@ try :
                 os.makedirs(output_dir, exist_ok=True)
                 sitk.WriteImage(sitk_prob_with_bbox, output_path)
 
-              
+
+                #----------------------------- INFERENCE AVEC 3 BOITES ENGLOBANTES-----------------------------------------------
                 #partie haut
                 max_frame_num_to_track = (bbox3D[-1] - bboxes[1][0] ) # zmax - zmilieu
                 _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[1][0], obj_id=1, box=bboxes[1][1])
@@ -445,11 +446,29 @@ try :
                     if out_frame_idx < bboxes[0][0] : 
                         segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
 
+                predictor.reset_state(inference_state)
 
-           
+                """-------------------------INFERENCE 1 BOITE ENGLOBANTE-----------------------------------------------------
+                #partie haut
+                max_frame_num_to_track = (bbox3D[-1] - bboxes[1][0] ) # zmax - zmilieu
+                _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[1][0], obj_id=1, box=bboxes[1][1])
+            
+            
+                for out_frame_idx, out_obj_ids, out_mask_logits in predictor.propagate_in_video(inference_state, max_frame_num_to_track = max_frame_num_to_track):
+                    segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
+                    
+                predictor.reset_state(inference_state)
+             
+                #partie bas
+                max_frame_num_to_track = (bboxes[1][0] - bbox3D[2])# zmilieu à zmin
+                
+                _, out_obj_ids, out_mask_logits  = predictor.add_new_points_or_box(inference_state=inference_state, frame_idx=bboxes[1][0], obj_id=1, box=bboxes[1][1])
+               
+                for out_frame_idx, out_obj_ids, out_mask_logits in predictor.propagate_in_video(inference_state, reverse = True, max_frame_num_to_track = max_frame_num_to_track):
+                    segs_logits[int(class_id), out_frame_idx ] += out_mask_logits[0][0].float()
              
                 predictor.reset_state(inference_state)
-              
+                """"
              
         segs_logits = segs_logits.to('cpu')     
         segs_prob = F.softmax(segs_logits, dim=0)
